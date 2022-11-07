@@ -21,7 +21,7 @@ Sub Start()
     
     ' Exporting Phase
     '   Tabel I
-    ExportDataExcel "Tabel I\i01.xls", tableRangesI, tableHeadersI, tableStepsI, tableLengthI, objWord
+    ExportDataExcel "Tabel I\i01.xls", tableRangesI, tableHeadersI, tableLengthI, objWord
 
     objDoc.SaveAs2 "Table I"
 End Sub
