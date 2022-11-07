@@ -164,9 +164,9 @@ Sub Start()
     tableHeadersIIt = Array("II20a", "II20b")
     tableLengthIIt = 2
 
-    tableRangesIIu = Array("A6:N338", "O6:AB332")
-    tableHeadersIIu = Array("II21a", "II21b")
-    tableLengthIIu = 2
+    tableRangesIIu = Array("A6:N116", "O6:AB116", "A117:N224", "O117:AB224", "A225:N338", "O225:AB332")
+    tableHeadersIIu = Array("II21a", "II21b", "II21c", "II21d", "II21e", "II21f")
+    tableLengthIIu = 6
 
     tableRangesIIv = Array("A4:N21", "O4:AA21")
     tableHeadersIIv = Array("II22a", "II22b")
@@ -176,9 +176,9 @@ Sub Start()
     tableHeadersIIw = Array("II23a", "II23b", "II23c", "II23d")
     tableLengthIIw = 4
 
-    tableRangesIIv = Array("A6:M25", "N6:Z23")
-    tableHeadersIIv = Array("II24a", "II24b")
-    tableLengthIIv = 2
+    tableRangesIIx = Array("A6:M25", "N6:Z23")
+    tableHeadersIIx = Array("II24a", "II24b")
+    tableLengthIIx = 2
 
     ActiveWindow.View = xlNormalView
     
