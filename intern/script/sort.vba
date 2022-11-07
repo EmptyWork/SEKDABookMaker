@@ -8,40 +8,76 @@ Dim objWord, objDoc As Object
 Dim tableRangesI As Variant, tableLengthI As Integer, tableHeadersI As Variant
 
 ' Tabel II01.xls
-Dim tabkeRangesIIa As Variant, tableLengthIIa As Variant, tableHeadersIIa As Variant
+Dim tableRangesIIa As Variant, tableLengthIIa As Variant, tableHeadersIIa As Variant
 
 ' Tabel II02.xls
-Dim tabkeRangesIIb As Variant, tableLengthIIb As Variant, tableHeadersIIb As Variant
+Dim tableRangesIIb As Variant, tableLengthIIb As Variant, tableHeadersIIb As Variant
 
 ' Tabel II03.xls
-Dim tabkeRangesIIc As Variant, tableLengthIIc As Variant, tableHeadersIIc As Variant
+Dim tableRangesIIc As Variant, tableLengthIIc As Variant, tableHeadersIIc As Variant
 
 ' Tabel II04.xls
-Dim tabkeRangesIId As Variant, tableLengthIId As Variant, tableHeadersIId As Variant
+Dim tableRangesIId As Variant, tableLengthIId As Variant, tableHeadersIId As Variant
 
 ' Tabel II05.xls
-Dim tabkeRangesIIe As Variant, tableLengthIIe As Variant, tableHeadersIIe As Variant
+Dim tableRangesIIe As Variant, tableLengthIIe As Variant, tableHeadersIIe As Variant
 
 ' Tabel II06.xls
-Dim tabkeRangesIIf As Variant, tableLengthIIf As Variant, tableHeadersIIf As Variant
+Dim tableRangesIIf As Variant, tableLengthIIf As Variant, tableHeadersIIf As Variant
 
 ' Tabel II07.xls
-Dim tabkeRangesIIg As Variant, tableLengthIIg As Variant, tableHeadersIIg As Variant
+Dim tableRangesIIg As Variant, tableLengthIIg As Variant, tableHeadersIIg As Variant
 
 ' Tabel II08.xls
-Dim tabkeRangesIIh As Variant, tableLengthIIh As Variant, tableHeadersIIh As Variant
+Dim tableRangesIIh As Variant, tableLengthIIh As Variant, tableHeadersIIh As Variant
 
 ' Tabel II09.xls
-Dim tabkeRangesIIi As Variant, tableLengthIIi As Variant, tableHeadersIIi As Variant
+Dim tableRangesIIi As Variant, tableLengthIIi As Variant, tableHeadersIIi As Variant
 
 ' Tabel II10.xls
-Dim tabkeRangesIIj As Variant, tableLengthIIj As Variant, tableHeadersIIj As Variant
+Dim tableRangesIIj As Variant, tableLengthIIj As Variant, tableHeadersIIj As Variant
 
 ' Tabel II11.xls
-Dim tabkeRangesIIk As Variant, tableLengthIIk As Variant, tableHeadersIIk As Variant
+Dim tableRangesIIk As Variant, tableLengthIIk As Variant, tableHeadersIIk As Variant
 
 ' Tabel II12.xls
-Dim tabkeRangesIIl As Variant, tableLengthIIl As Variant, tableHeadersIIl As Variant
+Dim tableRangesIIl As Variant, tableLengthIIl As Variant, tableHeadersIIl As Variant
+
+' Tabel II13.xls
+Dim tableRangesIIm As Variant, tableLengthIIm As Variant, tableHeadersIIm As Variant
+
+' Tabel II14.xls
+Dim tableRangesIIn As Variant, tableLengthIIn As Variant, tableHeadersIIn As Variant
+
+' Tabel II15.xls
+Dim tableRangesIIo As Variant, tableLengthIIo As Variant, tableHeadersIIo As Variant
+
+' Tabel II16.xls
+Dim tableRangesIIp As Variant, tableLengthIIp As Variant, tableHeadersIIp As Variant
+
+' Tabel II17.xls
+Dim tableRangesIIq As Variant, tableLengthIIq As Variant, tableHeadersIIq As Variant
+
+' Tabel II18.xls
+Dim tableRangesIIr As Variant, tableLengthIIr As Variant, tableHeadersIIr As Variant
+
+' Tabel II19.xls
+Dim tableRangesIIs As Variant, tableLengthIIs As Variant, tableHeadersIIs As Variant
+
+' Tabel II20.xls
+Dim tableRangesIIt As Variant, tableLengthIIt As Variant, tableHeadersIIt As Variant
+
+' Tabel II21.xls
+Dim tableRangesIIu As Variant, tableLengthIIu As Variant, tableHeadersIIu As Variant
+
+' Tabel II22.xls
+Dim tableRangesIIv As Variant, tableLengthIIv As Variant, tableHeadersIIv As Variant
+
+' Tabel II23.xls
+Dim tableRangesIIw As Variant, tableLengthIIw As Variant, tableHeadersIIw As Variant
+
+' Tabel II24.xls
+Dim tableRangesIIx As Variant, tableLengthIIx As Variant, tableHeadersIIx As Variant
 
 Sub Start()
     tableRangesI = Array("A5:P80", "Q5:AD80")
@@ -93,8 +129,56 @@ Sub Start()
     tableLengthIIk = 4
 
     tableRangesIIl = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
-    tableHeadersII = Array("II12a", "II12b", "II12c", "II12d")
+    tableHeadersIIl = Array("II12a", "II12b", "II12c", "II12d")
     tableLengthIIl = 4
+
+    tableRangesIIm = Array("A6:M28", "N6:Z26")
+    tableHeadersIIm = Array("II13a", "II13b")
+    tableLengthIIm = 2
+
+    tableRangesIIn = Array("A5:J55", "K5:W53")
+    tableHeadersIIn = Array("II14a", "II14b")
+    tableLengthIIn = 2
+
+    tableRangesIIo = Array("A6:N119", "O6:AB119", "A121:N231", "O121:AB231", "A233:N386", "N233:AB342")
+    tableHeadersIIo = Array("II15a", "II15b", "II15c", "II15d", "II15e", "II15f")
+    tableLengthIIo = 6
+
+    tableRangesIIp = Array("A6:N58", "O6:AB58", "A59:N107", "O59:AB107", "A109:N164", "N109:AB158")
+    tableHeadersIIp = Array("II16a", "II16b", "II16c", "II16d", "II16e", "II16f")
+    tableLengthIIp = 6
+
+    tableRangesIIq = Array("A6:N74", "O6:AC68")
+    tableHeadersIIq = Array("II17a", "II17b")
+    tableLengthIIq = 2
+
+    tableRangesIIr = Array("A7:P53", "Q6:AD51")
+    tableHeadersIIr = Array("II18a", "II18b")
+    tableLengthIIr = 2
+
+    tableRangesIIs = Array("A6:M119", "N6:Z116")
+    tableHeadersIIs = Array("II19a", "II19b")
+    tableLengthIIs = 2
+
+    tableRangesIIt = Array("A6:N63", "O6:AB57")
+    tableHeadersIIt = Array("II20a", "II20b")
+    tableLengthIIt = 2
+
+    tableRangesIIu = Array("A6:N338", "O6:AB332")
+    tableHeadersIIu = Array("II21a", "II21b")
+    tableLengthIIu = 2
+
+    tableRangesIIv = Array("A4:N21", "O4:AA21")
+    tableHeadersIIv = Array("II22a", "II22b")
+    tableLengthIIv = 2
+
+    tableRangesIIw = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
+    tableHeadersIIw = Array("II23a", "II23b", "II23c", "II23d")
+    tableLengthIIw = 4
+
+    tableRangesIIv = Array("A6:M25", "N6:Z23")
+    tableHeadersIIv = Array("II24a", "II24b")
+    tableLengthIIv = 2
 
     ActiveWindow.View = xlNormalView
     
@@ -129,7 +213,55 @@ Sub Start()
     '   Tabel IIh
     ExportDataExcel "Tabel II\ii08.xls", tableRangesIIh, tableHeadersIIh, tableLengthIIh, objWord
 
-    objDoc.SaveAs2 "Table I & IIh"
+    '   Tabel IIi
+    ExportDataExcel "Tabel II\ii09.xls", tableRangesIIi, tableHeadersIIi, tableLengthIIi, objWord
+
+    '   Tabel IIj
+    ExportDataExcel "Tabel II\ii10.xls", tableRangesIIj, tableHeadersIIj, tableLengthIIj, objWord
+
+    '   Tabel IIk
+    ExportDataExcel "Tabel II\ii11.xls", tableRangesIIk, tableHeadersIIk, tableLengthIIk, objWord
+
+    '   Tabel IIl
+    ExportDataExcel "Tabel II\ii12.xls", tableRangesIIl, tableHeadersIIl, tableLengthIIl, objWord
+
+    '   Tabel IIm
+    ExportDataExcel "Tabel II\ii13.xls", tableRangesIIm, tableHeadersIIm, tableLengthIIm, objWord
+
+    '   Tabel IIn
+    ExportDataExcel "Tabel II\ii14.xls", tableRangesIIn, tableHeadersIIn, tableLengthIIn, objWord
+
+    '   Tabel IIo
+    ExportDataExcel "Tabel II\ii15.xls", tableRangesIIo, tableHeadersIIo, tableLengthIIo, objWord
+
+    '   Tabel IIp
+    ExportDataExcel "Tabel II\ii16.xls", tableRangesIIp, tableHeadersIIp, tableLengthIIp, objWord
+
+    '   Tabel IIq
+    ExportDataExcel "Tabel II\ii17.xls", tableRangesIIq, tableHeadersIIq, tableLengthIIq, objWord
+
+    '   Tabel IIr
+    ExportDataExcel "Tabel II\ii18.xls", tableRangesIIr, tableHeadersIIr, tableLengthIIr, objWord
+
+    '   Tabel IIs
+    ExportDataExcel "Tabel II\ii19.xls", tableRangesIIs, tableHeadersIIs, tableLengthIIs, objWord
+    
+    '   Tabel IIt
+    ExportDataExcel "Tabel II\ii20.xls", tableRangesIIt, tableHeadersIIt, tableLengthIIt, objWord
+    
+    '   Tabel IIu
+    ExportDataExcel "Tabel II\ii21.xls", tableRangesIIu, tableHeadersIIu, tableLengthIIu, objWord
+    
+    '   Tabel IIv
+    ExportDataExcel "Tabel II\ii22.xls", tableRangesIIv, tableHeadersIIv, tableLengthIIv, objWord
+    
+    '   Tabel IIw
+    ExportDataExcel "Tabel II\ii23.xls", tableRangesIIw, tableHeadersIIw, tableLengthIIw, objWord
+    
+    '   Tabel IIx
+    ExportDataExcel "Tabel II\ii24.xls", tableRangesIIx, tableHeadersIIx, tableLengthIIx, objWord
+
+    objDoc.SaveAs2 "Table I, II"
 End Sub
 
 Sub ExportDataExcel(fileName, tableRanges, tableHeaders, tableLength, objWord)
