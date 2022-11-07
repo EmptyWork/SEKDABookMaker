@@ -96,7 +96,7 @@ Sub Start()
     tableHeadersIIc = Array("II03a", "II03b")
     tableLengthIIc = 2
 
-    tableRangesIId = Array("A5:O63", "P5:AC63", "A64:O105", "P64:AC101")
+    tableRangesIId = Array("A5:O63", "P5:AC63", "A5:O6,A64:O105", "P5:AC6,P64:AC101")
     tableHeadersIId = Array("II04a", "II04b", "II04c", "II04d")
     tableLengthIId = 4
 
@@ -277,15 +277,22 @@ Sub ExportDataExcel(fileName, tableRanges, tableHeaders, tableLength, objWord)
 End Sub
 
 Sub SelectAndCopyFromRange(ImportWorkbook, selectedRange)
+retry:
     ImportWorkbook.Worksheets(1).Range(selectedRange).Select
     ActiveWindow.DisplayGridlines = False
-    Selection.CopyPicture Appearance:=xlScreen, Format:=xlPicture
+    On Error Resume Next
+    ' Selection.CopyPicture Appearance:=xlScreen, Format:=xlPicture
+    Selection.Copy
+    On Error GoTo retry
 End Sub
 
 Sub CopyImage(objWord, tableHeader)
+retry:
     objWord.Visible = True
     objWord.Selection.Find.Execute tableHeader
     objWord.Selection.Paragraphs.Alignment = 1
+    On Error Resume Next
     objWord.Selection.Paste
+    On Error GoTo retry
     objWord.Selection.TypeParagraph
 End Sub
