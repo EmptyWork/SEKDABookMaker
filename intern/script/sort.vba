@@ -56,7 +56,7 @@ Dim tableRangesIIl As Variant, tableLengthIIl As Integer, tableHeadersIIl As Var
 Dim tableRangesIIm As Variant, tableLengthIIm As Integer, tableHeadersIIm As Variant
 
 ' Tabel II14.xls
-Dim tableRangesIIn As Variant, tableLengthIIn As Variant, tableHeadersIIn As Variant
+Dim tableRangesIIn As Variant, tableLengthIIn As Integer, tableHeadersIIn As Variant
 
 ' Tabel II15.xls
 Dim tableRangesIIo As Variant, tableLengthIIo As Integer, tableHeadersIIo As Variant
@@ -88,134 +88,447 @@ Dim tableRangesIIw As Variant, tableLengthIIw As Integer, tableHeadersIIw As Var
 ' Tabel II24.xls
 Dim tableRangesIIx As Variant, tableLengthIIx As Integer, tableHeadersIIx As Variant
 
-Sub Start()
+' Tabel III
+' Tabel III01.xls
+Dim tableRangesIIIa As Variant, tableLengthIIIa As Integer, tableHeadersIiIa As Variant
+
+' Tabel III02.xls
+Dim tableRangesIIIb As Variant, tableLengthIIIb As Integer, tableHeadersIiIb As Variant
+
+' Tabel III03.xls
+Dim tableRangesIIIc As Variant, tableLengthIIIc As Integer, tableHeadersIiIc As Variant
+
+' Tabel III04.xls
+Dim tableRangesIIId As Variant, tableLengthIIId As Integer, tableHeadersIiId As Variant
+
+' Tabel III05.xls
+Dim tableRangesIIIe As Variant, tableLengthIIIe As Integer, tableHeadersIiIe As Variant
+
+' Tabel III06.xls
+Dim tableRangesIIIf As Variant, tableLengthIIIf As Integer, tableHeadersIiIf As Variant
+
+' Tabel III07.xls
+Dim tableRangesIIIg As Variant, tableLengthIIIg As Integer, tableHeadersIiIg As Variant
+
+' Tabel III08.xls
+Dim tableRangesIIIh As Variant, tableLengthIIIh As Integer, tableHeadersIiIh As Variant
+
+' Tabel III09.xls
+Dim tableRangesIIIi As Variant, tableLengthIIIi As Integer, tableHeadersIiIi As Variant
+
+' Tabel III10.xls
+Dim tableRangesIIIj As Variant, tableLengthIIIj As Integer, tableHeadersIiIj As Variant
+
+' Tabel IV
+' Tabel IV01.xls
+Dim tableRangesIVa As Variant, tableLengthIVa As Integer, tableHeadersIVa As Variant
+
+' Tabel IV02.xls
+Dim tableRangesIVb As Variant, tableLengthIVb As Integer, tableHeadersIVb As Variant
+
+' Tabel V
+' Tabel V01.xls
+Dim tableRangesVa As Variant, tableLengthVa As Integer, tableHeadersVa As Variant
+
+' Tabel V02.xls
+Dim tableRangesVb As Variant, tableLengthVb As Integer, tableHeadersVb As Variant
+
+' Tabel V03.xls
+Dim tableRangesVc As Variant, tableLengthVc As Integer, tableHeadersVc As Variant
+
+' Tabel V04.xls
+Dim tableRangesVd As Variant, tableLengthVd As Integer, tableHeadersVd As Variant
+
+' Tabel V05.xls
+Dim tableRangesVe As Variant, tableLengthVe As Integer, tableHeadersVe As Variant
+
+' Tabel V06.xls
+Dim tableRangesVf As Variant, tableLengthVf As Integer, tableHeadersVf As Variant
+
+Dim FileLocation As String, FileTemplateLocation As String, FileExportName As String
+
+Sub Main()
+
+    FileLocation = Sheets(1).Range("D4")
+    FileTemplateLocation = Sheets(1).Range("D5")
+    FileExportName = Sheets(1).Range("D6")
+
+    ' Menjalankan Aplikasi
+    SEKDABookMaker
+End Sub
+
+Sub SEKDABookMaker()
+    ActiveWindow.View = xlNormalView
+
+    Set objWord = CreateObject("Word.Application")
+    Set objDoc = objWord.Documents.Open(FileTemplateLocation)
+    
+    Application.ScreenUpdating = False
+
+    ' Exporting Phase
+    ExportAllTables
+
+    Application.ScreenUpdating = True
+    
+    objDoc.SaveAs2 FileExportName
+End Sub
+
+Sub ExportAllTables()
+    '   Tabel I
+    ExportTablesI
+
+    '   Tabel II
+    ExportTablesII
+
+    '   Tabel III
+    ExportTablesIII
+
+    '   Tabel IV
+    ExportTablesIV
+
+    '   Tabel V
+    ExportTablesV
+End Sub
+
+Sub ExportDataExcel(fileName, tableRanges, tableHeaders, tableLength, objWord)
+    On Error Resume Next
+    Set ImportWorkbook = Workbooks.Open(FileLocation & "/" & fileName)
+    On Error GoTo skipThis
+    Dim previousCells As String
+
+    For i = 0 To tableLength - 1
+        If i > 1 And (i Mod 2) = 0 Then HideSelectedRows ImportWorkbook, previousCells
+        If i < tableLength - 2 Then ImportWorkbook.Worksheets(1).Range(tableRanges(i)).Borders(xlEdgeBottom).Weight = xlMedium
+        SelectAndCopyFromRange ImportWorkbook, tableRanges(i)
+        CopyImage objWord, tableHeaders(i)
+        previousCells = tableRanges(i)
+    Next i
+
+    ImportWorkbook.Application.DisplayAlerts = False
+    ImportWorkbook.Close
+skipThis:
+    Exit Sub
+End Sub
+
+Sub HideSelectedRows(ImportWorkbook, selectedRange)
+    Dim needToHideCells As String
+
+    needToHideCells = GetRowsNumberFromCells(selectedRange)
+
+    ImportWorkbook.Worksheets(1).Range(needToHideCells).Select
+
+    Selection.EntireRow.Hidden = True
+End Sub
+
+Function GetRowsNumberFromCells(selectedRange)
+    Dim Cells As Variant
+    Dim TopCells As Integer
+    Dim BottomCells As Integer
+    Dim NewSelectedCells As String
+    Cells = Split(selectedRange, ":")
+
+    TopCells = GetRowNumber(Cells(0)) + 2
+    BottomCells = GetRowNumber(Cells(1))
+    
+    NewSelectedCells = TopCells & ":" & BottomCells
+    GetRowsNumberFromCells = NewSelectedCells
+End Function
+    
+Function GetRowNumber(Cell)
+    Dim x As Integer
+    Dim sCleanedStr As String
+    For x = 1 To Len(Cell)
+        If IsNumeric(Mid(Cell, x, 1)) Then sCleanedStr = sCleanedStr & Mid(Cell, x, 1)
+    Next
+    GetRowNumber = sCleanedStr
+End Function
+
+Sub SelectAndCopyFromRange(ImportWorkbook, selectedRange)
+retry:
+    ImportWorkbook.Worksheets(1).Range(selectedRange).Select
+    ActiveWindow.DisplayGridlines = False
+    On Error Resume Next
+    Selection.CopyPicture Appearance:=xlScreen, Format:=xlPicture
+    On Error GoTo showApplication
+    'On Error Resume Next
+    ' Selection.Copy
+    'On Error GoTo retry
+showApplication:
+    Application.ScreenUpdating = True
+    Exit Sub
+End Sub
+
+Sub CopyImage(objWord, tableHeader)
+retry:
+    objWord.Visible = True
+    On Error Resume Next
+    objWord.Selection.Find.Execute tableHeader
+    On Error GoTo skipThis
+    objWord.Selection.Paragraphs.Alignment = 1
+    On Error Resume Next
+    objWord.Selection.Paste
+    On Error GoTo retry
+    'objWord.Selection.TypeParagraph
+skipThis:
+    Exit Sub
+End Sub
+
+Sub AssignTablesI()
+    ' Tabel 1
     tableRangesI = Array("A5:P80", "Q5:AD80")
-    tableHeadersI = Array("I01a", "I01b")
+    tableHeadersI = Array("T101a", "T101b")
     tableLengthI = 2
-    
+End Sub
+
+Sub AssignTablesII()
+    ' Tabel 1
     tableRangesIIa = Array("A6:M42", "N6:Z42")
-    tableHeadersIIa = Array("II01a", "II01b")
+    tableHeadersIIa = Array("T201a", "T201b")
     tableLengthIIa = 2
-    
+
+    ' Tabel 2
     tableRangesIIb = Array("A5:P107", "Q5:AD107")
-    tableHeadersIIb = Array("II02a", "II02b")
+    tableHeadersIIb = Array("T202a", "T202b")
     tableLengthIIb = 2
-    
+
+    ' Tabel 3
     tableRangesIIc = Array("A5:J52", "K5:W52")
-    tableHeadersIIc = Array("II03a", "II03b")
+    tableHeadersIIc = Array("T203a", "T203b")
     tableLengthIIc = 2
 
-    tableRangesIId = Array("A5:O63", "P5:AC63", "A5:O6,A64:O105", "P5:AC6,P64:AC101")
-    tableHeadersIId = Array("II04a", "II04b", "II04c", "II04d")
+    ' Tabel 4
+    tableRangesIId = Array("A5:O63", "P5:AC63", "A5:O105", "P5:AC101")
+    tableHeadersIId = Array("T204a", "T204b", "T204c", "T204d")
     tableLengthIId = 4
 
+    ' Tabel 5
     tableRangesIIe = Array("A5:N89", "O5:AA85")
-    tableHeadersIIe = Array("II05a", "II05b")
+    tableHeadersIIe = Array("T205a", "T205b")
     tableLengthIIe = 2
 
+    ' Tabel 6
     tableRangesIIf = Array("A6:N54", "O6:AA52")
-    tableHeadersIIf = Array("II06a", "II06b")
+    tableHeadersIIf = Array("T206a", "T206b")
     tableLengthIIf = 2
 
-    tableRangesIIg = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
-    tableHeadersIIg = Array("II07a", "II07b", "II07b", "II07c")
+    ' Tabel 7
+    tableRangesIIg = Array("A6:M89", "N6:Z89", "A6:M146", "N6:Z143")
+    tableHeadersIIg = Array("T207a", "T207b", "T207c", "T207d")
     tableLengthIIg = 4
-    
-    tableRangesIIh = Array("A6:M82", "N6:Z82", "A83:M146", "N83:Z143")
-    tableHeadersIIh = Array("II08a", "II08b", "II08c", "II08d")
+
+    ' Tabel 8
+    tableRangesIIh = Array("A6:M82", "N6:Z82", "A6:M146", "N6:Z143")
+    tableHeadersIIh = Array("T208a", "T208b", "T208c", "T208d")
     tableLengthIIh = 4
 
-    tableRangesIIi = Array("A6:M62", "N6:Z62", "A63:M146", "N63:Z143")
-    tableHeadersIIi = Array("II09a", "II09b", "II09c", "II09d")
+    ' Tabel 9
+    tableRangesIIi = Array("A6:M62", "N6:Z62", "A6:M146", "N6:Z143")
+    tableHeadersIIi = Array("T209a", "T209b", "T209c", "T209d")
     tableLengthIIi = 4
 
-    tableRangesIIj = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
-    tableHeadersIIj = Array("II10a", "II10b", "II10c", "II10d")
+    ' Tabel 10
+    tableRangesIIj = Array("A6:M89", "N6:Z89", "A6:M146", "N6:Z143")
+    tableHeadersIIj = Array("T210a", "T210b", "T210c", "T210d")
     tableLengthIIj = 4
 
-    tableRangesIIk = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
-    tableHeadersIIk = Array("II11a", "II11b", "II11c", "II11d")
+    ' Tabel 11
+    tableRangesIIk = Array("A6:M89", "N6:Z89", "A6:M146", "N6:Z143")
+    tableHeadersIIk = Array("T211a", "T211b", "T211c", "T211d")
     tableLengthIIk = 4
 
-    tableRangesIIl = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
-    tableHeadersIIl = Array("II12a", "II12b", "II12c", "II12d")
+    ' Tabel 12
+    tableRangesIIl = Array("A6:M89", "N6:Z89", "A6:M146", "N6:Z143")
+    tableHeadersIIl = Array("T212a", "T212b", "T212c", "T212d")
     tableLengthIIl = 4
 
+    ' Tabel 13
     tableRangesIIm = Array("A6:M28", "N6:Z26")
-    tableHeadersIIm = Array("II13a", "II13b")
+    tableHeadersIIm = Array("T213a", "T213b")
     tableLengthIIm = 2
 
+    ' Tabel 14
     tableRangesIIn = Array("A5:J55", "K5:W53")
-    tableHeadersIIn = Array("II14a", "II14b")
+    tableHeadersIIn = Array("T214a", "T214b")
     tableLengthIIn = 2
 
-    tableRangesIIo = Array("A6:N119", "O6:AB119", "A121:N231", "O121:AB231", "A233:N386", "N233:AB342")
-    tableHeadersIIo = Array("II15a", "II15b", "II15c", "II15d", "II15e", "II15f")
+    ' Tabel 15
+    tableRangesIIo = Array("A6:N119", "O6:AB119", "A6:N231", "O6:AB231", "A6:N348", "N6:AB342")
+    tableHeadersIIo = Array("T215a", "T215b", "T215c", "T215d", "T215e", "T215f")
     tableLengthIIo = 6
 
-    tableRangesIIp = Array("A6:N58", "O6:AB58", "A59:N107", "O59:AB107", "A109:N164", "N109:AB158")
-    tableHeadersIIp = Array("II16a", "II16b", "II16c", "II16d", "II16e", "II16f")
+    ' Tabel 16
+    tableRangesIIp = Array("A6:N58", "O6:AB58", "A6:N107", "O6:AB107", "A6:N164", "N6:AB158")
+    tableHeadersIIp = Array("T216a", "T216b", "T216c", "T216d", "T216e", "T216f")
     tableLengthIIp = 6
 
+    ' Tabel 17
     tableRangesIIq = Array("A6:N74", "O6:AC68")
-    tableHeadersIIq = Array("II17a", "II17b")
+    tableHeadersIIq = Array("T217a", "T217b")
     tableLengthIIq = 2
 
+    ' Tabel 18
     tableRangesIIr = Array("A7:P53", "Q6:AD51")
-    tableHeadersIIr = Array("II18a", "II18b")
+    tableHeadersIIr = Array("T218a", "T218b")
     tableLengthIIr = 2
 
+    ' Tabel 19
     tableRangesIIs = Array("A6:M119", "N6:Z116")
-    tableHeadersIIs = Array("II19a", "II19b")
+    tableHeadersIIs = Array("T219a", "T219b")
     tableLengthIIs = 2
 
+    ' Tabel 20
     tableRangesIIt = Array("A6:N63", "O6:AB57")
-    tableHeadersIIt = Array("II20a", "II20b")
+    tableHeadersIIt = Array("T220a", "T220b")
     tableLengthIIt = 2
 
-    tableRangesIIu = Array("A6:N116", "O6:AB116", "A117:N224", "O117:AB224", "A225:N338", "O225:AB332")
-    tableHeadersIIu = Array("II21a", "II21b", "II21c", "II21d", "II21e", "II21f")
+    ' Tabel 21
+    tableRangesIIu = Array("A6:N116", "O6:AB116", "A6:N224", "O6:AB224", "A6:N338", "O6:AB332")
+    tableHeadersIIu = Array("T221a", "T221b", "T221c", "T221d", "T221e", "T221f")
     tableLengthIIu = 6
 
+    ' Tabel 22
     tableRangesIIv = Array("A4:N21", "O4:AA21")
-    tableHeadersIIv = Array("II22a", "II22b")
+    tableHeadersIIv = Array("T222a", "T222b")
     tableLengthIIv = 2
 
-    tableRangesIIw = Array("A6:M89", "N6:Z89", "A90:M146", "N90:Z143")
-    tableHeadersIIw = Array("II23a", "II23b", "II23c", "II23d")
+    ' Tabel 23
+    tableRangesIIw = Array("A6:M89", "N6:Z89", "A6:M146", "N6:Z143")
+    tableHeadersIIw = Array("T223a", "T223b", "T223c", "T223d")
     tableLengthIIw = 4
 
+    ' Tabel 24
     tableRangesIIx = Array("A6:M25", "N6:Z23")
-    tableHeadersIIx = Array("II24a", "II24b")
+    tableHeadersIIx = Array("T224a", "T224b")
     tableLengthIIx = 2
+End Sub
 
-    ActiveWindow.View = xlNormalView
+Sub AssignTablesIII()
+    ' Tabel 1
+    tableRangesIIIa = Array("B5:M85", "N5:AD85")
+    tableHeadersIiIa = Array("T301a", "T301b")
+    tableLengthIIIa = 2
     
-    Set objWord = CreateObject("Word.Application")
-    Set objDoc = objWord.Documents.Open("D:\SEKDA\Template\SEKDA.docx")
+    ' Tabel 2
+    tableRangesIIIb = Array("B5:O85", "P5:AD85")
+    tableHeadersIiIb = Array("T302a", "T302b")
+    tableLengthIIIb = 2
     
-    ' Exporting Phase
+    ' Tabel 3
+    tableRangesIIIc = Array("B6:O64", "P6:AC64")
+    tableHeadersIiIc = Array("T303a", "T303b")
+    tableLengthIIIc = 2
+    
+    ' Tabel 4
+    tableRangesIIId = Array("B5:M86", "N5:AD86")
+    tableHeadersIiId = Array("T304a", "T304b")
+    tableLengthIIId = 2
+    
+    ' Tabel 5
+    tableRangesIIIe = Array("B5:O86", "P5:AC86")
+    tableHeadersIiIe = Array("T305a", "T305b")
+    tableLengthIIIe = 2
+    
+    ' Tabel 6
+    tableRangesIIIf = Array("B6:O65", "P6:AC65")
+    tableHeadersIiIf = Array("T306a", "T306b")
+    tableLengthIIIf = 2
+    
+    ' Tabel 7
+    tableRangesIIIg = Array("B6:O64", "P6:AC64")
+    tableHeadersIiIg = Array("T307a", "T307b")
+    tableLengthIIIg = 2
+
+    ' Tabel 8
+    tableRangesIIIh = Array("B6:O65", "P6:AC65")
+    tableHeadersIiIh = Array("T308a", "T308b")
+    tableLengthIIIh = 2
+
+    ' Tabel 9
+    tableRangesIIIi = Array("B5:O85", "P5:AD85")
+    tableHeadersIiIi = Array("T309a", "T309b")
+    tableLengthIIIi = 2
+
+    ' Tabel 10
+    tableRangesIIIj = Array("B5:O82", "P5:AC82")
+    tableHeadersIiIj = Array("T310a", "T310b")
+    tableLengthIIIj = 2
+End Sub
+
+Sub AssignTablesIV()
+    ' Tabel 1
+    tableRangesIVa = Array("A5:P80", "Q5:AD80")
+    tableHeadersIVa = Array("IV01a", "IV01b")
+    tableLengthIVa = 2
+
+    ' Tabel 2
+    tableRangesIVb = Array("A5:P80", "Q5:AD80")
+    tableHeadersIVb = Array("IV02a", "IV02b")
+    tableLengthIVb = 2
+End Sub
+
+Sub AssignTablesV()
+    ' Tabel 1
+    tableRangesVa = Array("B6:BB30", "BC6:BK30")
+    tableHeadersVa = Array("T501a", "T501b")
+    tableLengthVa = 2
+
+    ' Tabel 2
+    tableRangesVb = Array("B5:BB30", "BC5:BK30")
+    tableHeadersVb = Array("T502a", "T502b")
+    tableLengthVb = 2
+
+    ' Tabel 3
+    tableRangesVc = Array("B6:BL38", "BM6:BV38")
+    tableHeadersVc = Array("T503a", "T503b")
+    tableLengthVc = 2
+
+    ' Tabel 4
+    tableRangesVd = Array("B6:BL38", "BM6:BV38")
+    tableHeadersVd = Array("T504a", "T504b")
+    tableLengthVd = 2
+
+    ' Tabel 5
+    tableRangesVe = Array("B6:BB31", "BC6:BK31")
+    tableHeadersVe = Array("T505a", "T505b")
+    tableLengthVe = 2
+
+    ' Tabel 6
+    tableRangesVf = Array("B6:BB30", "BC6:BK30")
+    tableHeadersVf = Array("T506a", "T506b")
+    tableLengthVf = 2
+    
+End Sub
+
+Sub ExportTablesI()
+    '   Assign Data to Tables
+    AssignTablesI
+
     '   Tabel I
     ExportDataExcel "Tabel I\i01.xls", tableRangesI, tableHeadersI, tableLengthI, objWord
-    
+End Sub
+
+Sub ExportTablesII()
+    '   Assign Data To Tables
+    AssignTablesII
+
     '   Tabel IIa
     ExportDataExcel "Tabel II\ii01.xls", tableRangesIIa, tableHeadersIIa, tableLengthIIa, objWord
-    
+
     '   Tabel IIb
     ExportDataExcel "Tabel II\ii02.xls", tableRangesIIb, tableHeadersIIb, tableLengthIIb, objWord
 
     '   Tabel IIc
-    ExportDataExcel "Tabel II\ii03b.xls", tableRangesIIc, tableHeadersIIc, tableLengthIIc, objWord
-    
+    ExportDataExcel "Tabel II\ii03.xls", tableRangesIIc, tableHeadersIIc, tableLengthIIc, objWord
+
     '   Tabel IId
     ExportDataExcel "Tabel II\ii04.xls", tableRangesIId, tableHeadersIId, tableLengthIId, objWord
 
     '   Tabel IIe
-    ExportDataExcel "Tabel II\ii05b.xls", tableRangesIIe, tableHeadersIIe, tableLengthIIe, objWord
-    
+    ExportDataExcel "Tabel II\ii05.xls", tableRangesIIe, tableHeadersIIe, tableLengthIIe, objWord
+
     '   Tabel IIf
     ExportDataExcel "Tabel II\ii06.xls", tableRangesIIf, tableHeadersIIf, tableLengthIIf, objWord
-    
+
     '   Tabel IIg
     ExportDataExcel "Tabel II\ii07.xls", tableRangesIIg, tableHeadersIIg, tableLengthIIg, objWord
 
@@ -254,54 +567,90 @@ Sub Start()
 
     '   Tabel IIs
     ExportDataExcel "Tabel II\ii19.xls", tableRangesIIs, tableHeadersIIs, tableLengthIIs, objWord
-    
+
     '   Tabel IIt
     ExportDataExcel "Tabel II\ii20.xls", tableRangesIIt, tableHeadersIIt, tableLengthIIt, objWord
-    
+
     '   Tabel IIu
     ExportDataExcel "Tabel II\ii21.xls", tableRangesIIu, tableHeadersIIu, tableLengthIIu, objWord
-    
+
     '   Tabel IIv
     ExportDataExcel "Tabel II\ii22.xls", tableRangesIIv, tableHeadersIIv, tableLengthIIv, objWord
-    
+
     '   Tabel IIw
     ExportDataExcel "Tabel II\ii23.xls", tableRangesIIw, tableHeadersIIw, tableLengthIIw, objWord
-    
+
     '   Tabel IIx
     ExportDataExcel "Tabel II\ii24.xls", tableRangesIIx, tableHeadersIIx, tableLengthIIx, objWord
-
-    objDoc.SaveAs2 "Table I, II"
 End Sub
 
-Sub ExportDataExcel(fileName, tableRanges, tableHeaders, tableLength, objWord)
-    Set ImportWorkbook = Workbooks.Open("D:\SEKDA\44. Januari 2022\" & fileName)
-        
-    For i = 0 To tableLength - 1
-        SelectAndCopyFromRange ImportWorkbook, tableRanges(i)
-        CopyImage objWord, tableHeaders(i)
-    Next i
+Sub ExportTablesIII()
+    '   Assign Data to Tables
+    AssignTablesIII
 
-    ImportWorkbook.Application.DisplayAlerts = False
-    ImportWorkbook.Close
+    '   Tabel IIIa
+    ExportDataExcel "Tabel III\iii01.xls", tableRangesIIIa, tableHeadersIiIa, tableLengthIIIa, objWord
+
+    '   Tabel IIIb
+    ExportDataExcel "Tabel III\iii02.xls", tableRangesIIIb, tableHeadersIiIb, tableLengthIIIb, objWord
+
+    '   Tabel IIIc
+    ExportDataExcel "Tabel III\iii03.xls", tableRangesIIIc, tableHeadersIiIc, tableLengthIIIc, objWord
+
+    '   Tabel IIId
+    ExportDataExcel "Tabel III\iii04.xls", tableRangesIIId, tableHeadersIiId, tableLengthIIId, objWord
+
+    '   Tabel IIIe
+    ExportDataExcel "Tabel III\iii05.xls", tableRangesIIIe, tableHeadersIiIe, tableLengthIIIe, objWord
+
+    '   Tabel IIIf
+    ExportDataExcel "Tabel III\iii06.xls", tableRangesIIIf, tableHeadersIiIf, tableLengthIIIf, objWord
+
+    '   Tabel IIIg
+    ExportDataExcel "Tabel III\iii07.xls", tableRangesIIIg, tableHeadersIiIg, tableLengthIIIg, objWord
+
+    '   Tabel IIIh
+    ExportDataExcel "Tabel III\iii08.xls", tableRangesIIIh, tableHeadersIiIh, tableLengthIIIh, objWord
+
+    '   Tabel IIIi
+    ExportDataExcel "Tabel III\iii09.xls", tableRangesIIIi, tableHeadersIiIi, tableLengthIIIi, objWord
+
+    '   Tabel IIIj
+    ExportDataExcel "Tabel III\iii10.xls", tableRangesIIIj, tableHeadersIiIj, tableLengthIIIj, objWord
 End Sub
 
-Sub SelectAndCopyFromRange(ImportWorkbook, selectedRange)
-retry:
-    ImportWorkbook.Worksheets(1).Range(selectedRange).Select
-    ActiveWindow.DisplayGridlines = False
-    On Error Resume Next
-    ' Selection.CopyPicture Appearance:=xlScreen, Format:=xlPicture
-    Selection.Copy
-    On Error GoTo retry
+Sub ExportTablesIV()
+    '   Assign Data to Tables
+    AssignTablesIV
+
+    '   Tabel IVa
+    ExportDataExcel "Tabel IV\iv01.xls", tableRangesIVa, tableHeadersIVa, tableLengthIVa, objWord
+
+    '   Tabel IVb
+    ExportDataExcel "Tabel IV\iv02.xls", tableRangesIVb, tableHeadersIVb, tableLengthIVb, objWord
 End Sub
 
-Sub CopyImage(objWord, tableHeader)
-retry:
-    objWord.Visible = True
-    objWord.Selection.Find.Execute tableHeader
-    objWord.Selection.Paragraphs.Alignment = 1
-    On Error Resume Next
-    objWord.Selection.Paste
-    On Error GoTo retry
-    objWord.Selection.TypeParagraph
+Sub ExportTablesV()
+    '   Assign Data to Tables
+    AssignTablesV
+
+    '   Tabel Va
+    ExportDataExcel "Tabel V\v01.xls", tableRangesVa, tableHeadersVa, tableLengthVa, objWord
+
+    '   Tabel Vb
+    ExportDataExcel "Tabel V\v02.xls", tableRangesVb, tableHeadersVb, tableLengthVb, objWord
+
+    '   Tabel Vc
+    ExportDataExcel "Tabel V\v03.xls", tableRangesVc, tableHeadersVc, tableLengthVc, objWord
+
+    '   Tabel Vd
+    ExportDataExcel "Tabel V\v04.xls", tableRangesVd, tableHeadersVd, tableLengthVd, objWord
+
+    '   Tabel Ve
+    ExportDataExcel "Tabel V\v05.xls", tableRangesVe, tableHeadersVe, tableLengthVe, objWord
+
+    '   Tabel Vf
+    ExportDataExcel "Tabel V\v06.xls", tableRangesVf, tableHeadersVf, tableLengthVf, objWord
+
 End Sub
+
