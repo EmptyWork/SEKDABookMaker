@@ -11,80 +11,82 @@
 ' Body Of The Application
 Dim objWord, objDoc As Object
 
+' Tabel I
 ' Tabel I01.xls
 Dim tableRangesI As Variant, tableLengthI As Integer, tableHeadersI As Variant
 
+' Tabel II
 ' Tabel II01.xls
-Dim tableRangesIIa As Variant, tableLengthIIa As Variant, tableHeadersIIa As Variant
+Dim tableRangesIIa As Variant, tableLengthIIa As Integer, tableHeadersIIa As Variant
 
 ' Tabel II02.xls
-Dim tableRangesIIb As Variant, tableLengthIIb As Variant, tableHeadersIIb As Variant
+Dim tableRangesIIb As Variant, tableLengthIIb As Integer, tableHeadersIIb As Variant
 
 ' Tabel II03.xls
-Dim tableRangesIIc As Variant, tableLengthIIc As Variant, tableHeadersIIc As Variant
+Dim tableRangesIIc As Variant, tableLengthIIc As Integer, tableHeadersIIc As Variant
 
 ' Tabel II04.xls
-Dim tableRangesIId As Variant, tableLengthIId As Variant, tableHeadersIId As Variant
+Dim tableRangesIId As Variant, tableLengthIId As Integer, tableHeadersIId As Variant
 
 ' Tabel II05.xls
-Dim tableRangesIIe As Variant, tableLengthIIe As Variant, tableHeadersIIe As Variant
+Dim tableRangesIIe As Variant, tableLengthIIe As Integer, tableHeadersIIe As Variant
 
 ' Tabel II06.xls
-Dim tableRangesIIf As Variant, tableLengthIIf As Variant, tableHeadersIIf As Variant
+Dim tableRangesIIf As Variant, tableLengthIIf As Integer, tableHeadersIIf As Variant
 
 ' Tabel II07.xls
-Dim tableRangesIIg As Variant, tableLengthIIg As Variant, tableHeadersIIg As Variant
+Dim tableRangesIIg As Variant, tableLengthIIg As Integer, tableHeadersIIg As Variant
 
 ' Tabel II08.xls
-Dim tableRangesIIh As Variant, tableLengthIIh As Variant, tableHeadersIIh As Variant
+Dim tableRangesIIh As Variant, tableLengthIIh As Integer, tableHeadersIIh As Variant
 
 ' Tabel II09.xls
-Dim tableRangesIIi As Variant, tableLengthIIi As Variant, tableHeadersIIi As Variant
+Dim tableRangesIIi As Variant, tableLengthIIi As Integer, tableHeadersIIi As Variant
 
 ' Tabel II10.xls
-Dim tableRangesIIj As Variant, tableLengthIIj As Variant, tableHeadersIIj As Variant
+Dim tableRangesIIj As Variant, tableLengthIIj As Integer, tableHeadersIIj As Variant
 
 ' Tabel II11.xls
-Dim tableRangesIIk As Variant, tableLengthIIk As Variant, tableHeadersIIk As Variant
+Dim tableRangesIIk As Variant, tableLengthIIk As Integer, tableHeadersIIk As Variant
 
 ' Tabel II12.xls
-Dim tableRangesIIl As Variant, tableLengthIIl As Variant, tableHeadersIIl As Variant
+Dim tableRangesIIl As Variant, tableLengthIIl As Integer, tableHeadersIIl As Variant
 
 ' Tabel II13.xls
-Dim tableRangesIIm As Variant, tableLengthIIm As Variant, tableHeadersIIm As Variant
+Dim tableRangesIIm As Variant, tableLengthIIm As Integer, tableHeadersIIm As Variant
 
 ' Tabel II14.xls
 Dim tableRangesIIn As Variant, tableLengthIIn As Variant, tableHeadersIIn As Variant
 
 ' Tabel II15.xls
-Dim tableRangesIIo As Variant, tableLengthIIo As Variant, tableHeadersIIo As Variant
+Dim tableRangesIIo As Variant, tableLengthIIo As Integer, tableHeadersIIo As Variant
 
 ' Tabel II16.xls
-Dim tableRangesIIp As Variant, tableLengthIIp As Variant, tableHeadersIIp As Variant
+Dim tableRangesIIp As Variant, tableLengthIIp As Integer, tableHeadersIIp As Variant
 
 ' Tabel II17.xls
-Dim tableRangesIIq As Variant, tableLengthIIq As Variant, tableHeadersIIq As Variant
+Dim tableRangesIIq As Variant, tableLengthIIq As Integer, tableHeadersIIq As Variant
 
 ' Tabel II18.xls
-Dim tableRangesIIr As Variant, tableLengthIIr As Variant, tableHeadersIIr As Variant
+Dim tableRangesIIr As Variant, tableLengthIIr As Integer, tableHeadersIIr As Variant
 
 ' Tabel II19.xls
-Dim tableRangesIIs As Variant, tableLengthIIs As Variant, tableHeadersIIs As Variant
+Dim tableRangesIIs As Variant, tableLengthIIs As Integer, tableHeadersIIs As Variant
 
 ' Tabel II20.xls
-Dim tableRangesIIt As Variant, tableLengthIIt As Variant, tableHeadersIIt As Variant
+Dim tableRangesIIt As Variant, tableLengthIIt As Integer, tableHeadersIIt As Variant
 
 ' Tabel II21.xls
-Dim tableRangesIIu As Variant, tableLengthIIu As Variant, tableHeadersIIu As Variant
+Dim tableRangesIIu As Variant, tableLengthIIu As Integer, tableHeadersIIu As Variant
 
 ' Tabel II22.xls
-Dim tableRangesIIv As Variant, tableLengthIIv As Variant, tableHeadersIIv As Variant
+Dim tableRangesIIv As Variant, tableLengthIIv As Integer, tableHeadersIIv As Variant
 
 ' Tabel II23.xls
-Dim tableRangesIIw As Variant, tableLengthIIw As Variant, tableHeadersIIw As Variant
+Dim tableRangesIIw As Variant, tableLengthIIw As Integer, tableHeadersIIw As Variant
 
 ' Tabel II24.xls
-Dim tableRangesIIx As Variant, tableLengthIIx As Variant, tableHeadersIIx As Variant
+Dim tableRangesIIx As Variant, tableLengthIIx As Integer, tableHeadersIIx As Variant
 
 Sub Start()
     tableRangesI = Array("A5:P80", "Q5:AD80")
