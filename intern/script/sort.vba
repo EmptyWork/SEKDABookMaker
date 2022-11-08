@@ -2,6 +2,13 @@
 ' github.com/EmptyWork
 ' emptywork.my.id
 
+' SEKDA Book Maker
+'
+' Program sederhana untuk mengambil data dari excel
+' dan menambahkan ke word, sesuai dengan template
+' yang telah disediakan
+
+' Body Of The Application
 Dim objWord, objDoc As Object
 
 ' Tabel I01.xls
