@@ -24,6 +24,7 @@ Sub InitilizationOfVariants()
 
     InitilizationOfTableOne RangesCollection, FileNameCollection
     InitilizationOfTableTwo RangesCollection, FileNameCollection
+    InitilizationOfTableThree RangesCollection, FileNameCollection
     
     For i = 1 To RangesCollection.Count
         Debug.Print RangesCollection.Item(i), FileNameCollection.Item(i)
@@ -43,16 +44,30 @@ End Sub
 
 Sub InitilizationOfTableTwo(RCollection As Collection, FNCollection As Collection)
     tableRanges = Array("B8", "F8", "J8", "N8", "B19", "F19", "J19", "N19", _
-    "B30", "F30", "J30", "N30", "B41", "F41", "J41", "N41", _
-    "B52", "F52", "J52", "N52", "B63", "F63", "J63", "N63")
+                        "B30", "F30", "J30", "N30", "B41", "F41", "J41", "N41", _
+                        "B52", "F52", "J52", "N52", "B63", "F63", "J63", "N63")
     tableTableCount = Array("C5", "G5", "K5", "O5", "C16", "G16", "K16", "O16", _
-            "C27", "G27", "K27", "O27", "C38", "G38", "K38", "O38", _
-            "C49", "G49", "K49", "O49", "C60", "G60", "K60", "O60")
+                            "C27", "G27", "K27", "O27", "C38", "G38", "K38", "O38", _
+                            "C49", "G49", "K49", "O49", "C60", "G60", "K60", "O60")
     tableFileName = Array("C6", "G6", "K6", "O6", "C17", "G17", "K17", "O17", _
-            "C28", "G28", "K28", "O28", "C39", "G39", "K39", "O39", _
-            "C50", "G50", "K50", "O50", "C61", "G61", "K61", "O61")
+                            "C28", "G28", "K28", "O28", "C39", "G39", "K39", "O39", _
+                            "C50", "G50", "K50", "O50", "C61", "G61", "K61", "O61")
             
     tempCurrentTable = Sheet2.Range("D3")
+
+    RangesToCollection RCollection, FNCollection, tempCurrentTable, _
+                        tableRanges, tableTableCount, tableFileName
+End Sub
+
+Sub InitilizationOfTableThree(RCollection As Collection, FNCollection As Collection)
+    tableRanges = Array("B8", "F8", "J8", "N8", "B19", "F19", "J19", "N19", _
+                        "B30", "F30")
+    tableTableCount = Array("C5", "G5", "K5", "O5", "C16", "G16", "K16", "O16", _
+                            "C27", "G27")
+    tableFileName = Array("C6", "G6", "K6", "O6", "C17", "G17", "K17", "O17", _
+                            "C28", "G28")
+            
+    tempCurrentTable = Sheet3.Range("D3")
 
     RangesToCollection RCollection, FNCollection, tempCurrentTable, _
                         tableRanges, tableTableCount, tableFileName
