@@ -122,6 +122,8 @@ Sub ExportDataExcel(fileName, tableRanges, tableHeaders, tableLength, objWord)
         SelectAndCopyFromRange ImportWorkbook, tableRanges(i)
         CopyImage objWord, tableHeaders(i)
         previousCells = tableRanges(i)
+        
+        'Application.Wait (Now() + TimeValue("00:00:05"))
     Next i
 
     ImportWorkbook.Application.DisplayAlerts = False
