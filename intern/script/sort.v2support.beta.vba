@@ -22,14 +22,14 @@ Sub InitilizationOfVariants()
     Set RangesCollection = New Collection
     Set FileNameCollection = New Collection
 
-    Call InitilizationOfTableTwo RangesCollection, FileNameCollection
+    InitilizationOfTableTwo RangesCollection, FileNameCollection
     
     For i = 1 To RangesCollection.Count
         Debug.Print RangesCollection.Item(i), FileNameCollection.Item(i)
     Next i
 End Sub
 
-Sub InitilizationOfTableTwo (RCollection As Collection, FNCollection As Collection)
+Sub InitilizationOfTableTwo(RCollection As Collection, FNCollection As Collection)
     tableTwoRanges = Array("B8", "F8", "J8", "N8", "B19", "F19", "J19", "N19", _
     "B30", "F30", "J30", "N30", "B41", "F41", "J41", "N41", _
     "B52", "F52", "J52", "N52", "B63", "F63", "J63", "N63")
@@ -39,17 +39,23 @@ Sub InitilizationOfTableTwo (RCollection As Collection, FNCollection As Collecti
     tableTwoFileName = Array("C6", "G6", "K6", "O6", "C17", "G17", "K17", "O17", _
             "C28", "G28", "K28", "O28", "C39", "G39", "K39", "O39", _
             "C50", "G50", "K50", "O50", "C61", "G61", "K61", "O61")
+            
+    tempCurrentTable = Sheet2.Range("D3")
 
+    RangesToCollection RCollection, FNCollection, tempCurrentTable, _
+                        tableTwoRanges, tableTwoTableCount, tableTwoFileName
+End Sub
+
+Sub RangesToCollection(RCollection As Collection, FNCollection As Collection, _
+                        tableName, tRanges As Variant, tTableCount As Variant, tFileName As Variant)
     Dim tempRanges As Range, tempTableSize As Integer
     Dim tempCurrentTableFileName As String, tempCurrentTable As String
     Dim tempValueOfTheRange As String
 
-    tempCurrentTable = Sheet2.Range("D3")
-
-    For i = 0 To UBound(tableTwoRanges)
-        Set tempRanges = Sheet2.Range(tableTwoRanges(i)).CurrentRegion
-        tempTableSize = Sheet2.Range(tableTwoTableCount(i))
-        tempCurrentTableFileName = tempCurrentTable & Sheet2.Range(tableTwoFileName(i))
+    For i = 0 To UBound(tRanges)
+        Set tempRanges = Sheet2.Range(tRanges(i)).CurrentRegion
+        tempTableSize = Sheet2.Range(tTableCount(i))
+        tempCurrentTableFileName = tableName & "\" & Sheet2.Range(tFileName(i))
 
         For j = 0 To tempTableSize
         tempValueOfTheRange = tempRanges(j + 1, 1).Value
