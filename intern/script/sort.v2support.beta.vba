@@ -10,39 +10,43 @@
 
 ' Body Of The Application
 Dim objWord, objDoc As Object
-
-Dim tableRanges As Variant, tableIndicators As Variant, tableFilesName As Variant
-
 Dim FileLocation As String, FileTemplateLocation As String, FileExportName As String
 
 Sub InitilizationOfVariants()
-    Dim RangesCollection As Collection, FileNameCollection As Collection
-    Dim tableTwoRanges As Variant, tableTwoTableCount As Variant, tableTwoFileName As Variant
+    Dim RangesCollection As Collection, FileNameCollection As Collection, TableIDCollection As Collection
 
     Set RangesCollection = New Collection
     Set FileNameCollection = New Collection
+    Set TableIDCollection = New Collection
 
-    InitilizationOfTableOne RangesCollection, FileNameCollection
-    InitilizationOfTableTwo RangesCollection, FileNameCollection
-    InitilizationOfTableThree RangesCollection, FileNameCollection
+    InitilizationOfTableOne RangesCollection, FileNameCollection, TableIDCollection
+    InitilizationOfTableTwo RangesCollection, FileNameCollection, TableIDCollection
+    InitilizationOfTableThree RangesCollection, FileNameCollection, TableIDCollection
     
     For i = 1 To RangesCollection.Count
-        Debug.Print RangesCollection.Item(i), FileNameCollection.Item(i)
+        Debug.Print RangesCollection.Item(i), FileNameCollection.Item(i), TableIDCollection.Item(i)
     Next i
 End Sub
 
-Sub InitilizationOfTableOne(RCollection As Collection, FNCollection As Collection)
+Sub InitilizationOfTableOne(RCollection As Collection, FNCollection As Collection, TIDCollection As Collection)
+    Dim tableRanges As Variant, tableTableCount As Variant, tableFileName As Variant, tableID As Variant
+    Dim tempCurrentTable As String, tempCurrentSheet As Integer
+    
     tableRanges = Array("B8")
     tableTableCount = Array("C5")
     tableFileName = Array("C6")
-            
+    tableID = Array("D8")
+    tempCurrentSheet = 2
     tempCurrentTable = Sheet1.Range("D3")
 
-    RangesToCollection RCollection, FNCollection, tempCurrentTable, _
-                        tableRanges, tableTableCount, tableFileName
+    RangesToCollection RCollection, FNCollection, TIDCollection, tempCurrentTable, _
+                        tableRanges, tableTableCount, tableFileName, tableID, tempCurrentSheet
 End Sub
 
-Sub InitilizationOfTableTwo(RCollection As Collection, FNCollection As Collection)
+Sub InitilizationOfTableTwo(RCollection As Collection, FNCollection As Collection, TIDCollection As Collection)
+    Dim tableRanges As Variant, tableTableCount As Variant, tableFileName As Variant, tableID As Variant
+    Dim tempCurrentTable As String, tempCurrentSheet As Integer
+    
     tableRanges = Array("B8", "F8", "J8", "N8", "B19", "F19", "J19", "N19", _
                         "B30", "F30", "J30", "N30", "B41", "F41", "J41", "N41", _
                         "B52", "F52", "J52", "N52", "B63", "F63", "J63", "N63")
@@ -52,47 +56,62 @@ Sub InitilizationOfTableTwo(RCollection As Collection, FNCollection As Collectio
     tableFileName = Array("C6", "G6", "K6", "O6", "C17", "G17", "K17", "O17", _
                             "C28", "G28", "K28", "O28", "C39", "G39", "K39", "O39", _
                             "C50", "G50", "K50", "O50", "C61", "G61", "K61", "O61")
-            
+    tableID = Array("D8", "H8", "L8", "P8", "D19", "H19", "L19", "P19", _
+                    "D30", "H30", "L30", "P30", "D41", "H41", "L41", "P41", _
+                    "D52", "H52", "L52", "P52", "D63", "H63", "L63", "P63")
+    tempCurrentSheet = 3
     tempCurrentTable = Sheet2.Range("D3")
 
-    RangesToCollection RCollection, FNCollection, tempCurrentTable, _
-                        tableRanges, tableTableCount, tableFileName
+    RangesToCollection RCollection, FNCollection, TIDCollection, tempCurrentTable, _
+                        tableRanges, tableTableCount, tableFileName, tableID, tempCurrentSheet
 End Sub
 
-Sub InitilizationOfTableThree(RCollection As Collection, FNCollection As Collection)
+Sub InitilizationOfTableThree(RCollection As Collection, FNCollection As Collection, TIDCollection As Collection)
+    Dim tableRanges As Variant, tableTableCount As Variant, tableFileName As Variant, tableID As Variant
+    Dim tempCurrentTable As String, tempCurrentSheet As Integer
+    
     tableRanges = Array("B8", "F8", "J8", "N8", "B19", "F19", "J19", "N19", _
                         "B30", "F30")
     tableTableCount = Array("C5", "G5", "K5", "O5", "C16", "G16", "K16", "O16", _
                             "C27", "G27")
     tableFileName = Array("C6", "G6", "K6", "O6", "C17", "G17", "K17", "O17", _
                             "C28", "G28")
-            
+    tableID = Array("D8", "H8", "L8", "P8", "D19", "H19", "L19", "P19", _
+                    "D30", "H30")
+    tempCurrentSheet = 4
     tempCurrentTable = Sheet3.Range("D3")
 
-    RangesToCollection RCollection, FNCollection, tempCurrentTable, _
-                        tableRanges, tableTableCount, tableFileName
+    RangesToCollection RCollection, FNCollection, TIDCollection, tempCurrentTable, _
+                        tableRanges, tableTableCount, tableFileName, tableID, tempCurrentSheet
 End Sub
 
-Sub RangesToCollection(RCollection As Collection, FNCollection As Collection, _
-                        tableName, tRanges As Variant, tTableCount As Variant, tFileName As Variant)
-    Dim tempRanges As Range, tempTableSize As Integer
-    Dim tempCurrentTableFileName As String, tempCurrentTable As String
-    Dim tempValueOfTheRange As String
-
+Sub RangesToCollection(RCollection As Collection, FNCollection As Collection, TIDCollection As Collection, _
+                        tFolder, tRanges As Variant, tTableCount As Variant, tFileName As Variant, _
+                        tID As Variant, tSheet)
+    Dim tempCurrentTableFileName As String, tempRanges As Range, tempTableSize As Integer
+    Dim tempValueOfTheRange As String, tempValueOfID As String
+    
+    Sheets(tSheet).Select
+    
     For i = 0 To UBound(tRanges)
-        Set tempRanges = Sheet2.Range(tRanges(i)).CurrentRegion
-        tempTableSize = Sheet2.Range(tTableCount(i))
-        tempCurrentTableFileName = tableName & "\" & Sheet2.Range(tFileName(i))
+        Set tempRanges = ActiveSheet.Range(tRanges(i)).CurrentRegion
+        Set tempID = ActiveSheet.Range(tID(i)).CurrentRegion
+        tempTableSize = ActiveSheet.Range(tTableCount(i))
+        tempCurrentTableFileName = tFolder & "\" & ActiveSheet.Range(tFileName(i))
 
         For j = 0 To tempTableSize
         tempValueOfTheRange = tempRanges(j + 1, 1).Value
+        tempValueOfID = tempID(j + 1, 1).Value
             If Not IsEmpty(tempValueOfTheRange) And tempValueOfTheRange <> "Ranges" Then
                 RCollection.Add tempValueOfTheRange
                 FNCollection.Add tempCurrentTableFileName
+                TIDCollection.Add tempValueOfID
             End If
         Next j
     Next i
 End Sub
+
+
 
 Sub Main(isAutoSave)
 
