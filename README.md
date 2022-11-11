@@ -8,4 +8,6 @@ As of now, it's quite tedious to manually select range for table of a given file
 
 With this `vba script` you can just do it automatically and also update it using `excel dashboard` that being provided as it is.
 
-Mongodb - Express.js - React.js - Node.js
+### How this came to be a thing?
+
+As part of my curriculum, I need to do internship and I was given the opportunity to take part on Maluku Province Bank Indonesia Office for 5 months, with the first 2 weeks I was given a task to help increase the productivity and digitalization of Fungsi Data dan Statistik Ekonomi dan Keuangan (FD-SEK) especially the part when they need to make a report in the form of a Book, which is call Provincial Economic and Financial Statistics or in Indonesian Statistik Ekonomi Keuangan Daerah (SEKDA).
