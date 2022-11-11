@@ -153,9 +153,9 @@ End Sub
 
 Sub InitilizationOfVariants(RCollection As Collection, FNCollection As Collection, _
                             TIDCollection As Collection, TLCollection As Collection)
-    'InitilizationOfTableOne RCollection, FNCollection, TIDCollection, TLCollection
-    'InitilizationOfTableTwo RCollection, FNCollection, TIDCollection, TLCollection
-    'InitilizationOfTableThree RCollection, FNCollection, TIDCollection, TLCollection
+    InitilizationOfTableOne RCollection, FNCollection, TIDCollection, TLCollection
+    InitilizationOfTableTwo RCollection, FNCollection, TIDCollection, TLCollection
+    InitilizationOfTableThree RCollection, FNCollection, TIDCollection, TLCollection
     InitilizationOfTableFour RCollection, FNCollection, TIDCollection, TLCollection
     InitilizationOfTableFive RCollection, FNCollection, TIDCollection, TLCollection
 End Sub
