@@ -1,6 +1,6 @@
 # The Regional Economic Financial Statistics
 
- Provincial Economic and Financial Statistics (SEKDA) are monthly statistics published by Bank Indonesia containing economic, financial and banking data at the provincial level throughout Indonesia.  The data/statistics enable users to observe economic, financial and banking developments in each respective province of Indonesia.​
+_**Provincial Economic and Financial Statistics**_ in Indonesian _**Statistik Ekonomi Keuangan Daerah (SEKDA)**_ are monthly statistics published by **[Bank Indonesia](https://www.bi.go.id)** containing economic, financial and banking data at the provincial level throughout Indonesia.  The data/statistics enable users to observe economic, financial and banking developments in each respective province of Indonesia.​
 
 ## Why you need this?
 
